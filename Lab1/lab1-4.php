@@ -23,7 +23,7 @@
         }
         echo "</tr>";
     }
-    echo "</tables>"
+    echo "</table>"
     ?>
 </body>
 
