@@ -11,13 +11,13 @@
     <?php
     if (array_key_exists('enviar', $_POST)) {
         if ($_REQUEST['Apellido'] != "") {
-            echo "el apellido ingresado es $_REQUEST[Apellido]";
+            echo "el apellido ingresado es: $_REQUEST[Apellido]";
         } else {
             echo "por favor coloque el apellido";
         }
         echo "<br/>";
         if ($_REQUEST['Nombre'] != "") {
-            echo "el nombre ingresado es $_REQUEST[Nombre]";
+            echo "el nombre ingresado es: $_REQUEST[Nombre]";
         } else {
             echo "por favor coloque el nombre";
         }
