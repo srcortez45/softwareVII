@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Laboratorio 4.1: Aplicación web con imagen dinámica</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    </head>
+<body>
+    <div class="container mt-5">
+        <h1>Rango Dinámico</h1>
+        <div class="form-group">
+            <label for="rango">Selecciona un rango (1-3):</label>
+            <input type="range" class="form-range" id="salesRange" min="1" max="3" value="1">
+        </div>
+    </div>
+
+    <!-- Div para mostrar la imagen y la descripción -->
+    <div class="container mt-4">
+        <h2>Imagen Seleccionada:</h2>
+        <img src="resources/imagen_default.png" id="imagen" alt="Imagen" style="max-width: 100%;" />
+        <p id="descripcion">Seleccione su porcentaje de ventas</p>
+    </div>
+
+    <!-- Agrega el enlace al archivo JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script>
+        // JavaScript para manejar el rango y mostrar imágenes y descripciones
+        var range = document.getElementById('salesRange');
+        var imagen = document.getElementById('imagen');
+        var descripcion = document.getElementById('descripcion');
+
+        // Agrega un evento input al rango para detectar cambios en tiempo real
+        range.addEventListener('input', function () {
+            // Obtiene el valor seleccionado
+            var salesRange = parseInt(document.getElementById('salesRange').value);
+
+            fetch('lab41.php?salesRange=' + salesRange)
+                .then(function (response) {
+                    if (response.status !== 200) {
+                        console.log('Hubo un problema con la solicitud. Código de estado: ' + response.status);
+                        return;
+                    }
+
+                    // Convierte la respuesta JSON en un objeto JavaScript
+                    response.json().then(function (data) {
+                        // Actualiza la imagen y la descripción
+                        imagen.src = 'resources/' + data.imagen;
+                        descripcion.textContent = data.descripcion;
+                    });
+                })
+                .catch(function (error) {
+                    console.log('Error en la solicitud:', error);
+                });
+        });
+    </script>
+</body>
+</html>
