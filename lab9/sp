@@ -1,0 +1,7 @@
+BEGIN
+    DECLARE @s 
+    SET @s = CONCAT(SELECT id, titulo, texto, categoria, fecha, imagen FROM noticias WHERE , param_campo, LIKE CONCAT("%", ?, "%"));
+    PREPARE stmt FROM @s;
+    EXECUTE stmt USING param_valor;
+    DEALLOCATE PREPARE stmt;
+END
