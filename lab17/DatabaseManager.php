@@ -43,9 +43,8 @@ class DatabaseManager
         $instruccion = "CALL sp_crear_producto(?,?,?,?)";
         $stmt = $this->conexion->prepare($instruccion);
         $stmt->bind_param("sssi", $nombre, $descripcion, $precio, $categoria_id);
-        #$stmt->execute();
-        #return $stmt->affected_rows > 0;
-        return false;
+        $stmt->execute();
+        return $stmt->affected_rows > 0;
     }
 
     public function obtenerProductoPorId($id)
